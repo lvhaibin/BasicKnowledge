@@ -70,6 +70,28 @@ class LinkedList {
         this.head = this.head.next;
         return this.head;
     }
+
+    deleteLastNode = () => {
+        if (!this.head) {
+            return null;
+        }
+
+        if (!this.head.next) {
+            this.head = null;
+            return null;
+        }
+
+        let previous = this.head;
+        let tail = this.head.next;
+
+        while(tail.next) {
+            previous = tail;
+            tail = tail.next;
+        }
+        previous.next = null;
+
+        return this.head;
+    }
 }
 
 let list = new LinkedList();
