@@ -92,6 +92,10 @@ class LinkedList {
 
         return this.head;
     }
+
+    deleteAll = () => {
+        this.head = null;
+    }
 }
 
 let list = new LinkedList();
