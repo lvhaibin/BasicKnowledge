@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>intersection observer</title>
+        <style type="text/css">
+            .container {
+                display: flex;
+            }
+            .container > div {
+                margin-bottom: 10px;
+            }
+            .container > div:last-child {
+                margin-bottom: 0 !important;
+            }
+            .box {
+                height: 200px;
+                min-width: 300px;
+                border: 1px solid #c7c7c7;
+            }
+            #box {
+                height: 100px;
+                width: 100%;
+            }
+        </style>
+    </header>
+    <body>
+        <div class="container">
+            <div class="box">box1</div>
+            <div class="box">box2</div>
+            <div class="box">box3</div>
+            <div class="box">box4</div>
+            <div class="box">box5</div>
+            <div class="box">box6</div>
+            <div class="box">box1</div>
+            <div class="box">box2</div>
+            <div class="box">box3</div>
+            <div class="box">box4</div>
+            <div class="box">box5</div>
+            <div id="box">box6</div>
+        </div>
+        <script type="module">
+            var tasksNum = 10;
+
+            requestIdleCallback(unImportWork)
+
+            function unImportWork(deadline) {
+                while (deadline.timeRemaining() && tasksNum > 0) {
+                    console.log(`执行了${10 - tasksNum + 1}个任务`)
+                    tasksNum--
+                }
+
+                if (tasksNum > 0) { // 在未来的帧中继续执行
+                    requestIdleCallback(unImportWork)
+                }
+            }
+        </script>
+    </body>
+</html>

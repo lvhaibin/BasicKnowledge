@@ -3,16 +3,21 @@ const isObject = (obj) => {
     return obj === null ? false : typeof obj === 'object';
 }
 
-const cloneDeep = obj => {
+const cloneDeep = (obj, hash = new WeakMap()) => {
     if (!isObject(obj)) {
         return obj;
     }
-    const target = Array.isArray(obj) ? [] : {};
 
+    if (hash.has(obj)) {
+        return hash.get(obj);
+    }
+
+    const target = Array.isArray(obj) ? [] : {};
+    hash.set(obj, target);
     for(let key in obj) {
         if(Object.prototype.hasOwnProperty.call(obj, key)) {
             if (isObject(obj[key])) {
-                target[key] = cloneDeep(obj[key]);
+                target[key] = cloneDeep(obj[key], hash);
             } else {
                 target[key] = obj[key];
             }
@@ -29,6 +34,7 @@ const obj = {
   a2: null,
   a3: 123
 }
+obj.a4 = obj;
 
 const obj1 = cloneDeep(obj);
 
