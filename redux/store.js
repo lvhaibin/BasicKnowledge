@@ -2,7 +2,7 @@ const initialState = {
     count: 0
 }
 function reducer(state = initialState, action) {    
-    switch(action.type) {      
+    switch(action.type) {   
         case 'plus':        
         return {            
             ...state,                    
